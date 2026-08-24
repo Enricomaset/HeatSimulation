@@ -17,10 +17,7 @@ isotropic plate without internal heat sources, the temperature satisfies the
 two-dimensional heat equation
 
 $$
-\frac{\partial u}{\partial t}
-=
-\alpha \nabla^2u
-=
+\frac{\partial u}{\partial t} = \alpha \nabla^2u =
 \alpha\left(
 \frac{\partial^2u}{\partial x^2}
 +
@@ -108,12 +105,7 @@ $$
 Substitution of the two slopes yields
 
 $$
-\frac{\partial^2u}{\partial x^2}(x_i,y_j,t_n)
-\approx
-\frac{1}{\Delta x}
-\left(
-\frac{u_{i+1,j}^{n}-u_{i,j}^{n}}{\Delta x}
--
+\frac{\partial^2u}{\partial x^2}(x_i,y_j,t_n) \approx \frac{1}{\Delta x} \left(\frac{u_{i+1,j}^{n}-u_{i,j}^{n}}{\Delta x} -
 \frac{u_{i,j}^{n}-u_{i-1,j}^{n}}{\Delta x}
 \right),
 $$
@@ -176,8 +168,7 @@ Substitution of the discrete Laplacian into the forward time approximation
 gives
 
 $$
-u_{i,j}^{n+1}
-=
+u_{i,j}^{n+1} =
 u_{i,j}^{n}
 +
 \frac{\alpha\Delta t}{h^2}
@@ -201,8 +192,7 @@ The final explicit finite-difference scheme is
 $$
 \boxed{
 u_{i,j}^{n+1}
-=
-(1-4r)u_{i,j}^{n}
+= (1-4r)u_{i,j}^{n}
 +r u_{i+1,j}^{n}
 +r u_{i-1,j}^{n}
 +r u_{i,j+1}^{n}
@@ -234,7 +224,7 @@ Consequently, the explicit two-dimensional scheme is stable under the
 condition
 
 $$
-\boxed{0<r\leq\frac14}.
+\boxed{r\leq\frac{1}{4}}
 $$
 
 Equivalently, the time step must satisfy
@@ -261,8 +251,7 @@ so the update becomes
 
 $$
 u_{i,j}^{n+1}
-=
-\frac15\left(
+= \frac15\left(
 u_{i,j}^{n}
 +u_{i+1,j}^{n}
 +u_{i-1,j}^{n}
@@ -309,9 +298,8 @@ $$
 The mathematical formula
 
 $$
-u_{i,j}^{n+1}
-=
-(1-4r)u_{i,j}^{n}
+u_{i,j}^{n+1}$$
+= (1-4r)u_{i,j}^{n}
 +r u_{i+1,j}^{n}
 +r u_{i-1,j}^{n}
 +r u_{i,j+1}^{n}
