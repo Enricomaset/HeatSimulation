@@ -298,7 +298,7 @@ $$
 The mathematical formula
 
 $$
-u_{i,j}^{n+1}$$
+u_{i,j}^{n+1}
 = (1-4r)u_{i,j}^{n}
 +r u_{i+1,j}^{n}
 +r u_{i-1,j}^{n}
