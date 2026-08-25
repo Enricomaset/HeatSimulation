@@ -5,32 +5,35 @@
 #include <utility>
 #include <vector>
 
+constexpr double COLD_TEMPERATURE = 20.0;
+constexpr double HOT_TEMPERATURE = 100.0;
+
+// Inizializza la piastra
 void initialize_plate(
     std::vector<double>& current,
     std::vector<double>& next,
     int N
 ) {
-    const double cold_temperature = 20.0;
-    const double hot_temperature = 100.0;
-
     std::fill(
         current.begin(),
         current.end(),
-        cold_temperature
+        COLD_TEMPERATURE
     );
 
+    // Quadrato caldo centrale
     const int start = 2 * N / 5;
     const int end = 3 * N / 5;
 
     for (int i = start; i < end; ++i) {
         for (int j = start; j < end; ++j) {
-            current[i * N + j] = hot_temperature;
+            current[i * N + j] = HOT_TEMPERATURE;
         }
     }
 
     next = current;
 }
 
+// Esegue un passo temporale
 void step(
     std::vector<double>& current,
     std::vector<double>& next,
@@ -52,27 +55,38 @@ void step(
     }
 
     std::swap(current, next);
+
+    // Mantiene la sorgente centrale a 500 °C
+    const int start = 2 * N / 5;
+    const int end = 3 * N / 5;
+
+    for (int i = start; i < end; ++i) {
+        for (int j = start; j < end; ++j) {
+            current[i * N + j] = HOT_TEMPERATURE;
+        }
+    }
 }
 
+// Converte la temperatura in un colore
 void temperature_to_color(
     double temperature,
     float& red,
     float& green,
     float& blue
 ) {
+    // Converte [COLD_TEMPERATURE, HOT_TEMPERATURE] nell'intervallo [0, 1]
     double value =
-        (temperature - 20.0) / (100.0 - 20.0);
+        (temperature - COLD_TEMPERATURE)
+        / (HOT_TEMPERATURE - COLD_TEMPERATURE);
 
     value = std::clamp(value, 0.0, 1.0);
 
+    // Gradiente blu -> giallo -> rosso
     if (value < 0.5) {
-
         red = static_cast<float>(2.0 * value);
         green = static_cast<float>(2.0 * value);
         blue = static_cast<float>(1.0 - 2.0 * value);
-
     } else {
-
         red = 1.0f;
         green =
             static_cast<float>(2.0 * (1.0 - value));
@@ -80,6 +94,7 @@ void temperature_to_color(
     }
 }
 
+// Disegna la piastra
 void draw_plate(
     const std::vector<double>& current,
     int N
@@ -173,7 +188,6 @@ int main() {
     }
 
     glfwMakeContextCurrent(window);
-
     glfwSwapInterval(1);
 
     while (!glfwWindowShouldClose(window)) {
@@ -213,7 +227,6 @@ int main() {
         draw_plate(current, N);
 
         glfwSwapBuffers(window);
-
         glfwPollEvents();
     }
 
