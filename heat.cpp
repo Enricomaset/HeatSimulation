@@ -56,7 +56,7 @@ void step(
 
     std::swap(current, next);
 
-    // Mantiene la sorgente centrale a 500 °C
+    // Mantiene la sorgente centrale a HOT_TEMPERATURE
     const int start = 2 * N / 5;
     const int end = 3 * N / 5;
 
