@@ -1,5 +1,5 @@
 #include <GLFW/glfw3.h>
-
+#include <cmath>
 #include <algorithm>
 #include <iostream>
 #include <utility>
@@ -39,6 +39,7 @@ void step(
     std::vector<double>& next,
     int N,
     double r
+    //double source_temperature
 ) {
     for (int i = 1; i < N - 1; ++i) {
         for (int j = 1; j < N - 1; ++j) {
@@ -56,13 +57,14 @@ void step(
 
     std::swap(current, next);
 
-    // Mantiene la sorgente centrale a HOT_TEMPERATURE
+    // Mantiene la sorgente centrale a HOT_TEMPERATURE o varia con source_temperature
     const int start = 2 * N / 5;
     const int end = 3 * N / 5;
 
     for (int i = start; i < end; ++i) {
         for (int j = start; j < end; ++j) {
             current[i * N + j] = HOT_TEMPERATURE;
+            //current[i * N + j] = source_temperature;
         }
     }
 }
@@ -158,6 +160,11 @@ int main() {
         return 1;
     }
 
+    // Parametri variazione temperatura sinusoidale
+    //int time_step = 0;
+    //const int period_steps = 300;
+    //constexpr double PI = 3.14159265358979323846;
+
     std::vector<double> current(N * N);
     std::vector<double> next(N * N);
 
@@ -203,6 +210,12 @@ int main() {
         }
 
         step(current, next, N, r);
+
+        // Conteggio step fonte variabile sinusoidalemnte
+        //const double oscillation = 0.5 * (1.0 + std::sin(2.0 * PI * time_step / period_steps));
+        //const double source_temperature = COLD_TEMPERATURE + (HOT_TEMPERATURE - COLD_TEMPERATURE) * oscillation;
+        //step(current, next, N, r, source_temperature);
+        //++time_step;
 
         int width;
         int height;
